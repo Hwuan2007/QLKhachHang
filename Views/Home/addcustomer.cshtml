@@ -1,0 +1,53 @@
+﻿ @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+ @model QLKhachHang.Models.Customer
+
+@{
+    ViewData["Title"] = "AddCustomer";
+    Layout = "~/Views/Shared/_AddCustomerLayout.cshtml";
+}
+<form method="post" asp-action="addcustomer">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Tên nguời dùng:</label>
+                <input asp-for="Name" type="text"  placeholder="Nhập Họ và Tên" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Phonenumber" class="control-label">Số điện thoại:</label>
+                <input asp-for="Phonenumber" type="text" placeholder="Nhập Số Điện Thoại" class="form-control" />
+                <span asp-validation-for="Phonenumber" class="text-danger"></span>
+            </div>
+            <br />
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Address" class="control-label">Địa chỉ:</label>
+                <input asp-for="Address" type="text" placeholder="Nhập Điạ Chỉ" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <br>
+            <div>
+                <label asp-for="Gender" >Giới tính:</label>
+                <select asp-for="Gender" name="gender" class="form-control">
+                    <option>Nam</option>
+                    <option >Nữ</option>
+                </select>
+            </div>
+            <br>
+            <div class="btn-chance">
+                <div class="form-group">
+                    <button type="submit" class="save-btn"> Lưu </button>
+                    <button type="button" class="cancel-btn"onclick="cancelForm()">
+                            <a asp-action="index"> Hủy </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+        
+

@@ -1,0 +1,79 @@
+﻿@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<Customer>
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_CustomerList.cshtml";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="header">
+    <h4 class="title"> Danh Sách Khách Hàng </h4>
+    <br />
+    <a asp-action="addcustomer">
+        <button class="add-btn">
+            <i class="bx bxs-plus-circle"></i>
+            Thêm Khách Hàng
+        </button>
+    </a>
+    <br />
+    <p>@TempData["Message"]</p>
+</div>
+<div class="content table-responsive table-full-width" style="width: auto !important;">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên khách hàng</th>
+                <th>Địa chỉ</th>
+                <th>Giới tính</th>
+                <th>Số điện thoại</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+@foreach( var item in Model)
+{
+                <tr>
+                    <td> @item.Id </td>
+                    <td> @item.Name </td>
+                    <td> @item.Address </td>
+                    <td> @item.Gender </td>
+                    <td> @item.Phonenumber </td>
+                    <td>
+                        <button class="edit-btn" style="display: inline-block;">
+                            <a asp-action="editcustomer" asp-route-id="@item.Id">sửa</a>
+                        </button>
+                        <button class="del-btn" style="display: inline-block;">
+                            <a asp-action="deletecustomer" asp-route-id="@item.Id">xóa</a>
+                        </button>
+                    </td>
+                </tr>      
+}
+        </tbody>
+    </table>
+</div>
+<div class="text-center" style="display:flex;justify-content:center">
+    <nav aria-label="Page navigation" >
+        <ul class="pagination">
+            <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1 })" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+                <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                </li>
+            }
+            <li class="page-item @(Model.PageNumber == Model.PageCount ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1 })" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
